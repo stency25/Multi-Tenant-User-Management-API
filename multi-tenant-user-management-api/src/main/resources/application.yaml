@@ -17,26 +17,34 @@ spring:
       hibernate:
         format_sql: true
 
+server:
+  port: 8080
+
 logging:
   level:
     root: INFO
-
-    # Your application
-    com.example: DEBUG
-
-    # Spring
-    org.springframework: INFO
+    com.example.multi_tenant_user_management_api: DEBUG
     org.springframework.web: INFO
-
-    # Hibernate / JPA
+    org.springframework.security: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
 
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
 
+  file:
+    name: logs/application.log
+
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/archive/application-%d{yyyy-MM-dd}.%i.log
+      max-file-size: 10MB
+      max-history: 30
+      total-size-cap: 1GB
+
 springdoc:
   api-docs:
     path: /v3/api-docs
+
   swagger-ui:
     path: /swagger-ui.html
