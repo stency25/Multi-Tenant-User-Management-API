@@ -17,7 +17,7 @@ A Spring Boot REST API for managing **multiple organisations, users, roles, perm
 * Java / Spring Boot
 * Spring Security
 * Spring Data JPA
-* PostgreSQL
+* Mysql
 * JWT
 * Maven
 * Docker
