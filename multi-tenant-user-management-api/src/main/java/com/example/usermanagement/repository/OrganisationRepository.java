@@ -12,9 +12,5 @@ public interface OrganisationRepository extends JpaRepository<Organisation, UUID
 
     Optional<Organisation> findByShortcode(String shortcode);
 
-    boolean existsByShortcode(String shortcode);
-
-    Optional<Organisation> findByEmail(String email);
-
-    boolean existsByEmail(String email);
+   
 }
