@@ -1,24 +1,12 @@
 spring:
   application:
     name: multi-tenant-user-management-api
+    profiles:
+      active: postgres # Activates application-postgres.yml
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/multi_tenant_db
-    username: root
-    password: Metty@22
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
 
 server:
-  port: 8080
+  port: 8081
 
 logging:
   level:
@@ -48,3 +36,5 @@ springdoc:
 
   swagger-ui:
     path: /swagger-ui.html
+
+
