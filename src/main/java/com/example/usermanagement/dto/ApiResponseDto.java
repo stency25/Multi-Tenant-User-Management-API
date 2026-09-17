@@ -1,4 +1,4 @@
-package com.example.usermanagement.dto.Role;
+package com.example.usermanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
