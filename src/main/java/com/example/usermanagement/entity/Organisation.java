@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import java.time.LocalDateTime;
 
@@ -36,6 +39,7 @@ public class Organisation {
     @Column(nullable = false)
     private String department;
 
+    @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private OffsetDateTime createdAt;
 }

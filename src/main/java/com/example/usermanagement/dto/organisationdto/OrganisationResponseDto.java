@@ -1,14 +1,16 @@
-package com.example.usermanagement.dto;
+package com.example.usermanagement.dto.organisationdto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
 @Data
-public class OrganisationRequestDto {
-    @NotBlank
+public class OrganisationResponseDto {
+
+    private UUID id;
     private String name;
 
     @JsonProperty("organisation_shortcode")
@@ -20,8 +22,9 @@ public class OrganisationRequestDto {
     @JsonProperty("phone_number")
     private String phoneNumber;
 
-    @Email
     private String email;
-
     private String department;
+
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
 }

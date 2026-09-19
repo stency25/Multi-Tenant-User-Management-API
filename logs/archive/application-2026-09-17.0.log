@@ -1,0 +1,45 @@
+2026-09-17T10:59:11.850+03:00  WARN 14076 --- [multi-tenant-user-management-api] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11h15m34s17ms804µs).
+2026-09-17T11:03:04.719+03:00  INFO 14076 --- [multi-tenant-user-management-api] [http-nio-8081-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 655 ms
+2026-09-17T21:37:33.967+03:00  WARN 14076 --- [multi-tenant-user-management-api] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h39m17s893ms100ns).
+2026-09-17T22:01:06.702+03:00  WARN 14076 --- [multi-tenant-user-management-api] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m32s448ms529µs800ns).
+2026-09-17T22:01:26.330+03:00  INFO 14076 --- [multi-tenant-user-management-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-17T22:01:26.363+03:00  INFO 14076 --- [multi-tenant-user-management-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-17T22:01:26.375+03:00  INFO 14076 --- [multi-tenant-user-management-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-09-17T23:44:12.233+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] .MultiTenantUserManagementApiApplication : Starting MultiTenantUserManagementApiApplication using Java 17.0.12 with PID 17868 (C:\Users\jafeth\Downloads\multi-tenant-user-management-api\multi-tenant-user-management-api\target\classes started by jafeth in C:\Users\jafeth\Downloads\multi-tenant-user-management-api\multi-tenant-user-management-api)
+2026-09-17T23:44:12.238+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] .MultiTenantUserManagementApiApplication : The following 1 profile is active: "postgres"
+2026-09-17T23:44:14.185+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-17T23:44:14.322+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 118 ms. Found 3 JPA repository interfaces.
+2026-09-17T23:44:15.853+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-09-17T23:44:15.879+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-17T23:44:15.880+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2026-09-17T23:44:16.115+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-17T23:44:16.117+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3765 ms
+2026-09-17T23:44:16.685+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-17T23:44:16.809+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-09-17T23:44:16.896+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-09-17T23:44:17.714+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-17T23:44:17.775+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-17T23:44:18.321+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3e4afd10
+2026-09-17T23:44:18.324+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-17T23:44:18.378+03:00  WARN 17868 --- [multi-tenant-user-management-api] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-17T23:44:20.018+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-17T23:44:20.297+03:00 DEBUG 17868 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists roles 
+       alter column description set data type TEXT
+2026-09-17T23:44:20.365+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-17T23:44:21.223+03:00  WARN 17868 --- [multi-tenant-user-management-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-17T23:44:22.080+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-09-17T23:44:22.101+03:00  INFO 17868 --- [multi-tenant-user-management-api] [main] .MultiTenantUserManagementApiApplication : Started MultiTenantUserManagementApiApplication in 11.235 seconds (process running for 12.416)
+2026-09-17T23:50:28.608+03:00  INFO 17868 --- [multi-tenant-user-management-api] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-17T23:50:28.609+03:00  INFO 17868 --- [multi-tenant-user-management-api] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-17T23:50:28.611+03:00  INFO 17868 --- [multi-tenant-user-management-api] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-09-17T23:50:28.934+03:00 DEBUG 17868 --- [multi-tenant-user-management-api] [http-nio-8081-exec-2] org.hibernate.SQL                        : 
+    select
+        re1_0.id,
+        re1_0.description,
+        re1_0.is_active,
+        re1_0.name 
+    from
+        roles re1_0 
+    where
+        re1_0.is_active

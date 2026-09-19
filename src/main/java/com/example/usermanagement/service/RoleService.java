@@ -5,9 +5,7 @@ import com.example.usermanagement.dto.ApiResponseDto;
 import com.example.usermanagement.dto.Role.RoleResponseDto;
 import com.example.usermanagement.entity.RoleEntity;
 import com.example.usermanagement.repository.RoleRepository;
-import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,23 +23,22 @@ public class RoleService {
     }
 
     //FETCHING ALl  active roles and convert to dtO respones
-    public  List<ApiResponseDto>getRoleForTenant(String organisationShortCode){
-        List < RoleEntity> activeRoles = roleRepository.findByIsActiveTrue();//FETH ROLE FROM DB
+    public List<ApiResponseDto<RoleResponseDto>> getRoleForTenant(String organisationShortCode) {
+            List<RoleEntity> activeRoles = roleRepository.findByIsActiveTrue();//FETH ROLE FROM DB
         return activeRoles.stream()
-                //map entity obects into dtO OBJCTS
-                .map(role-> new ApiResponseDto(
-                        "Success",
-                        new RoleResponseDto(
-                                role.getId(),
-                                role.getName(),
-                                role.getDescription()
+                //map entity objects into dtO OBJCTS
+                .map(role -> {
+                    ApiResponseDto<RoleResponseDto> response = new ApiResponseDto<>();
+                    response.setStatus("Success");
+                    response.setData(new RoleResponseDto(
+                            role.getId(),
+                            role.getName(),
+                            role.getDescription()
+                    ));
+                    return response;
+                })
+                .collect(Collectors.toList());
 
-                        )
 
-
-                ))
-                        .collect(Collectors.toList());
     }
-
-
 }

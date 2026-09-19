@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.util.UUID;
 import java.time.LocalDateTime;
 
@@ -15,7 +17,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne
@@ -43,6 +45,7 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive = true;
 
+    @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 }

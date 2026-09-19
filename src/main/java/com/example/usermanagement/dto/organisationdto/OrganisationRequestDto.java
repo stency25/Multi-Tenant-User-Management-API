@@ -1,30 +1,30 @@
-package com.example.usermanagement.dto;
+package com.example.usermanagement.dto.organisationdto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @Data
-public class OrganisationResponseDto {
-
-    private UUID id;
+public class OrganisationRequestDto {
+    @NotBlank
     private String name;
 
+    @NotBlank
     @JsonProperty("organisation_shortcode")
     private String organisationShortCode;
 
     @JsonProperty("logo_url")
     private String logoUrl;
 
+    @NotBlank
     @JsonProperty("phone_number")
     private String phoneNumber;
 
+    @Email
     private String email;
-    private String department;
 
-    @JsonProperty("created_at")
-    private LocalDateTime createdAt;
+    @NotBlank
+    private String department;
 }
