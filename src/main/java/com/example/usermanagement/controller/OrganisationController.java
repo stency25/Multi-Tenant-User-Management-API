@@ -31,7 +31,7 @@ public class OrganisationController {
     Organisation saveOrganisation = organisationService.createOrganisation(request);
 
     OrganisationCreationResponseDto responseData = new OrganisationCreationResponseDto();
-    responseData.setOrganisationId(responseData.getOrganisationId());
+    responseData.setOrganisationId(saveOrganisation.getId());
     responseData.setOrganisationShortcode(saveOrganisation.getShortcode());
     responseData.setEmail(saveOrganisation.getEmail());
 

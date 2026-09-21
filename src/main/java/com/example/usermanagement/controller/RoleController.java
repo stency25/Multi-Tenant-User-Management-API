@@ -24,7 +24,7 @@ public class RoleController {
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<List<ApiResponseDto>>getRolesForTenant(
+    public ResponseEntity<List<ApiResponseDto<RoleResponseDto>>> getRolesForTenant(
             @RequestParam("organisation_shortcode") String organisationShortcode){
     return ResponseEntity.ok(roleService.getRoleForTenant(organisationShortcode));
 
