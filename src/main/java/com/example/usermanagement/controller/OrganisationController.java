@@ -37,7 +37,7 @@ public class OrganisationController {
 
     ApiResponseDto<OrganisationCreationResponseDto> response = new ApiResponseDto<>();
     response.setStatus("successs");
-    response.setMessage("organisation succesfully provides");
+    response.setMessage("organisation succesfully provided");
     response.setData(responseData);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
