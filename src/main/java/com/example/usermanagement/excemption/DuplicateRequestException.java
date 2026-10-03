@@ -1,7 +1,7 @@
 package com.example.usermanagement.excemption;
 
 
-
+//THROW ERROR FOR DUPLICATE FIELDS
 public class DuplicateRequestException extends RuntimeException {
     private final  String code;
 
