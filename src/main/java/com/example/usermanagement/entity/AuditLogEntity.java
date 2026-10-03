@@ -2,7 +2,6 @@ package com.example.usermanagement.entity;
 
 
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,15 +11,14 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Audit_log")
+@Table(name = "audit_logs")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuditLogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID ID;
-
+    private UUID id;
     @Column(name = "organisation_id",nullable = true)
     private UUID organisationId;
 
@@ -37,19 +35,19 @@ public class AuditLogEntity {
     private String resourceEndpoint;
 
     @Column(name = "ip_address", nullable = false,length = 45)
-    private String ipAdress;
+    private String ipAddress;
 
-    @Column(name = "user_agemt",nullable = false,columnDefinition = "TEXT")
+    @Column(name = "user_agent",nullable = false,columnDefinition = "TEXT")
     private String user_Agent;
 
     @Column(name = "request_payload", nullable = true,columnDefinition = "JSONB")
     private String requestPayload;
 
-    @Column(name = "response_code",columnDefinition = "INTEGER", nullable = false)
-    private String responseCode;
+    @Column(name = "response_code", nullable = false)
+    private Integer responseCode;
 
     @CreationTimestamp
-    @Column(name = "time_stamp",columnDefinition = "TIMESTAMP",nullable = false)
+    @Column(name = "timestamp",nullable = false)
     private OffsetDateTime timeStamp;
 
 }

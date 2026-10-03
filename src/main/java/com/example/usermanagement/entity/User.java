@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import java.time.LocalDateTime;
 
@@ -33,19 +34,23 @@ public class User {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",length = 20)
     private String phoneNumber;
 
+    @Column(name = "department",length = 100)
     private String department;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_type", nullable = false)
+    @Column(name = "user_type", nullable = false,length = 20)
     private UserType userType;
+
+    @Column(name = "requires_password_change", nullable = false)
+    private Boolean requiresPasswordChange = true;
 
     @Column(name = "is_active")
     private boolean isActive = true;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 }

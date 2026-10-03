@@ -15,10 +15,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true , nullable = false)
+    @Column(unique = true , nullable = false,length =  100)
     private String name;
 
     @Column(columnDefinition = "TEXT")
@@ -26,6 +26,7 @@ public class RoleEntity {
 
     @Column(name = "is_active")
     private boolean isActive = true;
+
 
 
 }
