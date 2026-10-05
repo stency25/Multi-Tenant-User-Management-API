@@ -1,6 +1,4 @@
 package com.example.usermanagement.service;
-
-
 import com.example.usermanagement.dto.SuperUserDto.AddSuperUserRequestDto;
 import com.example.usermanagement.dto.organisationdto.OrganisationRequestDto;
 import com.example.usermanagement.dto.superuserroleDto.UpdateSuperUserRolesRequestDto;
@@ -8,6 +6,7 @@ import com.example.usermanagement.entity.*;
 import com.example.usermanagement.excemption.DuplicateRequestException;
 import com.example.usermanagement.excemption.ResourceNotFoundException;
 import com.example.usermanagement.repository.OrganisationRepository;
+import com.example.usermanagement.repository.RoleRepository;
 import com.example.usermanagement.repository.UserRepository;
 import com.example.usermanagement.repository.UserRoleRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,18 +26,19 @@ public class OrganisationService {
 
     private final OrganisationRepository organisationRepository;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final SecureRandom secureRandom = new SecureRandom();
 
 
-    public OrganisationService(OrganisationRepository organisationRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public OrganisationService(OrganisationRepository organisationRepository, UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.organisationRepository = organisationRepository;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @Transactional
     public Organisation createOrganisation(OrganisationRequestDto request) {
@@ -87,21 +87,23 @@ public User addSuperUser(AddSuperUserRequestDto request) {
     return userRepository.save(superUser);
 }
 
-@Transactional
-public void updateSuperUserRoles(UpdateSuperUserRolesRequestDto request){
-        Organisation organisation = new organisationRepository
-                .findByShortcode(request.getOrganisationShortcode())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "ORGANISATION_NOT_FOUND", "No organisation exists with this shortcode"));
-User targetUser=UserRepository
-        .findById(request.getTargetSuperUserId())
-        .orElseThrow(() -> new ResourceNotFoundException(
-                "USER_NOT_FOUND", "No user exists with this ID"));
-if (targetUser.getUserType()!= userType.SUPER_USER){
-    throw new IllegalArgumentException("the target user is not a super user");
-}
 
-userRoleRepository.deleteByUser_Id(targetUser.getId());
+//the assignment of a role to a specific person
+@Transactional
+public void updateSuperUserRoles(UpdateSuperUserRolesRequestDto request) {
+    Organisation organisation = organisationRepository
+            .findByShortcode(request.getOrganisationShortcode())
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "ORGANISATION_NOT_FOUND", "No organisation exists with this shortcode"));
+    User targetUser = userRepository
+            .findById(request.getTargetSuperUserId())
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "USER_NOT_FOUND", "No user exists with this ID"));
+    if (targetUser.getUserType() != UserType.SUPER_USER) {
+        throw new IllegalArgumentException("the target user is not a super user");
+    }
+
+    userRoleRepository.deleteByUser_Id(targetUser.getId());
 
     for (UUID roleId : request.getAssignedRoleIds()) {
         RoleEntity role = roleRepository
@@ -109,16 +111,17 @@ userRoleRepository.deleteByUser_Id(targetUser.getId());
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "ROLE_NOT_FOUND", "No role exists with ID: " + roleId));
 
+
+        UserRolesEntity userRole = new UserRolesEntity();
+
+        userRole.setUser(targetUser);
+        userRole.setRole(role);
+        userRole.setOrganisation(organisation);
+
+        userRoleRepository.save(userRole);
+
     }
-    UserRolesEntity userRole = new UserRolesEntity();
-    userRole.setUser(targetUser);
-    userRole.setRole(role);
-    userRole.setOrganisation(organisation);
-
-    userRoleRepository.save(userRole);
 }
-
-
 
 
     ///This method builds a random,unnpredictable temporary password
