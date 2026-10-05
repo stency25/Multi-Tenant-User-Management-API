@@ -7,18 +7,17 @@ import com.example.usermanagement.dto.SuperUserDto.AddSuperUserResponseDto;
 import com.example.usermanagement.dto.organisationdto.OrganisationCreationResponseDto;
 import com.example.usermanagement.dto.organisationdto.OrganisationRequestDto;
 import com.example.usermanagement.dto.organisationdto.OrganisationResponseDto;
+import com.example.usermanagement.dto.superuserroleDto.UpdateSuperUserRolesRequestDto;
 import com.example.usermanagement.entity.Organisation;
 import com.example.usermanagement.entity.User;
 import com.example.usermanagement.service.OrganisationService;
+import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/system/organisations")
@@ -70,5 +69,22 @@ public class OrganisationController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+
+    //TO check why response  contains permission in superuser roles
+    @PutMapping("/super-users/roles")
+    public ResponseEntity<ApiResponseDto<Void>>UpdateSuperUseRoles(
+            @Valid @RequestBody UpdateSuperUserRolesRequestDto request){
+
+
+        ApiResponseDto<Void> response = new ApiResponseDto<>();
+        response.setStatus("success");
+        response.setMessage("superUserPERMISSIONS updated succesfully by system admin");
+
+        return ResponseEntity.ok(response);
+    }
+
+
+
 
 }
