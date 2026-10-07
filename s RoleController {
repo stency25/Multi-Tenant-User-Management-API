@@ -1,0 +1,13 @@
+[1mdiff --git a/src/main/java/com/example/usermanagement/controller/RoleController.java b/src/main/java/com/example/usermanagement/controller/RoleController.java[m
+[1mindex 2017e85..708723f 100644[m
+[1m--- a/src/main/java/com/example/usermanagement/controller/RoleController.java[m
+[1m+++ b/src/main/java/com/example/usermanagement/controller/RoleController.java[m
+[36m@@ -18,7 +18,7 @@[m [mimport java.util.List;[m
+ public class RoleController {[m
+ [m
+     private  final RoleService roleService;[m
+[31m-@Autowired[m
+[32m+[m
+     public RoleController(RoleService roleService) {[m
+         this.roleService = roleService;[m
+     }[m

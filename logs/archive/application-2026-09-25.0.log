@@ -1,0 +1,81 @@
+2026-09-25T15:05:38.553+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] .MultiTenantUserManagementApiApplication : Starting MultiTenantUserManagementApiApplication using Java 17.0.12 with PID 19700 (C:\Users\jafeth\Downloads\multi-tenant-user-management-api\multi-tenant-user-management-api\target\classes started by jafeth in C:\Users\jafeth\Downloads\multi-tenant-user-management-api\multi-tenant-user-management-api)
+2026-09-25T15:05:38.576+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] .MultiTenantUserManagementApiApplication : The following 1 profile is active: "postgres"
+2026-09-25T15:05:44.434+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-25T15:05:44.676+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 211 ms. Found 3 JPA repository interfaces.
+2026-09-25T15:05:47.920+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-09-25T15:05:48.003+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-25T15:05:48.003+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2026-09-25T15:05:48.176+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-25T15:05:48.177+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9238 ms
+2026-09-25T15:05:48.966+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-25T15:05:49.282+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-09-25T15:05:49.500+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-09-25T15:05:50.716+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-25T15:05:50.874+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-25T15:05:51.783+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@52f43225
+2026-09-25T15:05:51.786+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-25T15:05:52.005+03:00  WARN 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-25T15:05:54.848+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-25T15:05:55.266+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    create table audit_log (
+        id uuid not null,
+        action varchar(100) not null,
+        ip_address varchar(45) not null,
+        organisation_id uuid,
+        request_payload JSONB,
+        resource_endpoint varchar(255) not null,
+        response_code INTEGER not null,
+        time_stamp TIMESTAMP not null,
+        user_id uuid not null,
+        user_type varchar(20) not null,
+        user_agemt TEXT not null,
+        primary key (id)
+    )
+2026-09-25T15:05:55.883+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    create table permissions (
+        id uuid not null,
+        code varchar(100) not null,
+        description TEXT,
+        primary key (id)
+    )
+2026-09-25T15:05:55.905+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists roles 
+       alter column description set data type TEXT
+2026-09-25T15:05:55.914+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    create table user_roles (
+        id uuid not null,
+        organisation_id uuid not null,
+        role_id uuid not null,
+        user_id uuid not null,
+        primary key (id)
+    )
+2026-09-25T15:05:55.926+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists permissions 
+       drop constraint if exists UK7lcb6glmvwlro3p2w2cewxtvd
+2026-09-25T15:05:55.930+03:00  WARN 19700 --- [multi-tenant-user-management-api] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-09-25T15:05:55.930+03:00  WARN 19700 --- [multi-tenant-user-management-api] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk7lcb6glmvwlro3p2w2cewxtvd" of relation "permissions" does not exist, skipping
+2026-09-25T15:05:55.930+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists permissions 
+       add constraint UK7lcb6glmvwlro3p2w2cewxtvd unique (code)
+2026-09-25T15:05:55.947+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists user_roles 
+       add constraint FK30g0hnnbqgu6g3gdt0gid2tc0 
+       foreign key (organisation_id) 
+       references organisations
+2026-09-25T15:05:56.014+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists user_roles 
+       add constraint FKh8ciramu9cc9q3qcqiv4ue8a6 
+       foreign key (role_id) 
+       references roles
+2026-09-25T15:05:56.034+03:00 DEBUG 19700 --- [multi-tenant-user-management-api] [main] org.hibernate.SQL                        : 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+2026-09-25T15:05:56.104+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-25T15:05:58.511+03:00  WARN 19700 --- [multi-tenant-user-management-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-25T15:05:59.953+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-09-25T15:05:59.982+03:00  INFO 19700 --- [multi-tenant-user-management-api] [main] .MultiTenantUserManagementApiApplication : Started MultiTenantUserManagementApiApplication in 24.861 seconds (process running for 27.167)
+2026-09-25T20:56:55.549+03:00  WARN 19700 --- [multi-tenant-user-management-api] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h25m59s651ms141µs100ns).
+2026-09-25T22:57:08.331+03:00  WARN 19700 --- [multi-tenant-user-management-api] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h49m12s470ms120µs700ns).
+2026-09-25T23:02:48.064+03:00  WARN 19700 --- [multi-tenant-user-management-api] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m39s730ms345µs).

@@ -1,6 +1,4 @@
 package com.example.usermanagement.service;
-
-
 import com.example.usermanagement.dto.ApiResponseDto;
 import com.example.usermanagement.dto.Role.RoleResponseDto;
 import com.example.usermanagement.entity.RoleEntity;
