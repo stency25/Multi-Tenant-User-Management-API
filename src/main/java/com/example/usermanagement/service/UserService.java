@@ -2,6 +2,12 @@ package com.example.usermanagement.service;
 
 /// api/v1/tenant/users
 //for stangdard user created by super user
+import com.example.usermanagement.dto.CreateUserRequest;
+import com.example.usermanagement.dto.UserRequestDTO;
+import com.example.usermanagement.entity.Organisation;
+import com.example.usermanagement.entity.User;
+import com.example.usermanagement.excemption.DuplicateRequestException;
+import com.example.usermanagement.excemption.ResourceNotFoundException;
 import com.example.usermanagement.repository.OrganisationRepository;
 import com.example.usermanagement.repository.RoleRepository;
 import com.example.usermanagement.repository.UserRepository;
@@ -33,6 +39,23 @@ public class UserService {
         this.userRoleRepository = userRoleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+//TJIS METHOD CONFIRMS IF THE USER EXISTS
+    public User createUser(CreateUserRequest request) {
+        Organisation organisation = organisationRepository
+                .findByShortcode(request.getOrganisationShortcode())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "ORGANISATION_NOT_FOUND", "No organisation exists with this shortcode"));
+
+
+/// HERE  pull out the nested DTO, check email uniqueness:
+    UserRequestDTO userDetails = request.getUserDetails();
+
+    if (userRepository.findByEmail(userDetails.getEmail()).isPresent()) {
+        throw new DuplicateRequestException(
+                "DUPLICATE_EMAIL", "A user with this email already exists");
+    }
+
+    /// BUILD AND SAVE NEW STANdard user
 
 
 
