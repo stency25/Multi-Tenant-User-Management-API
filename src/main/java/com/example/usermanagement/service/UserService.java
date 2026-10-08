@@ -6,6 +6,7 @@ import com.example.usermanagement.dto.CreateUserRequest;
 import com.example.usermanagement.dto.UserRequestDTO;
 import com.example.usermanagement.entity.Organisation;
 import com.example.usermanagement.entity.User;
+import com.example.usermanagement.entity.UserType;
 import com.example.usermanagement.excemption.DuplicateRequestException;
 import com.example.usermanagement.excemption.ResourceNotFoundException;
 import com.example.usermanagement.repository.OrganisationRepository;
@@ -57,8 +58,31 @@ public class UserService {
 
     /// BUILD AND SAVE NEW STANdard user
 
+        String temporaryPassword = generateTemporaryPassword();
 
+        User standardUser = new User();
+        standardUser.setOrganisation(organisation);
+        standardUser.setEmail(userDetails.getEmail());
+        standardUser.setFullName(userDetails.getFullName());
+        standardUser.setPhoneNumber(userDetails.getPhoneNumber());
+        standardUser.setDepartment(userDetails.getDepartment());
+        standardUser.setUserType(UserType.STANDARD_USER);
+        standardUser.setPasswordHash(bCryptPasswordEncoder.encode(temporaryPassword));
+        standardUser.setActive(true);
+        standardUser.setRequiresPasswordChange(true);
 
+        User savedUser = userRepository.save(standardUser);
+
+    return savedUser;
+}
+
+    private String generateTemporaryPassword() {
+        StringBuilder sb = new StringBuilder(TEMP_PASSWORD_LENGTH);
+        for (int i = 0; i < TEMP_PASSWORD_LENGTH; i++) {
+            sb.append(TEMP_PASSWORD_ALPHABET.charAt(secureRandom.nextInt(TEMP_PASSWORD_ALPHABET.length())));
+        }
+        return sb.toString();
+    }
 
 
 }
