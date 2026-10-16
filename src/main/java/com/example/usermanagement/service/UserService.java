@@ -3,11 +3,11 @@ package com.example.usermanagement.service;
 /// api/v1/tenant/users
 //for stangdard user created by super user
 import com.example.usermanagement.dto.CreateUserRequest;
+import com.example.usermanagement.dto.UpdateUserRolesRequestDto;
 import com.example.usermanagement.dto.UserRequestDTO;
-import com.example.usermanagement.entity.Organisation;
-import com.example.usermanagement.entity.User;
-import com.example.usermanagement.entity.UserType;
+import com.example.usermanagement.entity.*;
 import com.example.usermanagement.excemption.DuplicateRequestException;
+import com.example.usermanagement.excemption.PermissionDeniedException;
 import com.example.usermanagement.excemption.ResourceNotFoundException;
 import com.example.usermanagement.repository.OrganisationRepository;
 import com.example.usermanagement.repository.RoleRepository;
@@ -15,8 +15,10 @@ import com.example.usermanagement.repository.UserRepository;
 import com.example.usermanagement.repository.UserRoleRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -82,6 +84,51 @@ public class UserService {
             sb.append(TEMP_PASSWORD_ALPHABET.charAt(secureRandom.nextInt(TEMP_PASSWORD_ALPHABET.length())));
         }
         return sb.toString();
+    }
+
+
+
+///
+    @Transactional
+    public void updateUserRoles(UpdateUserRolesRequestDto request) {
+
+        Organisation organisation = organisationRepository
+                .findByShortcode(request.getOrganisationShortcode())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "ORGANISATION_NOT_FOUND", "No organisation exists with this shortcode"));
+
+        User targetUser = userRepository
+                .findById(request.getTargetUserId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "USER_NOT_FOUND", "No user exists with this ID"));
+
+        if (targetUser.getOrganisation() == null
+                || !targetUser.getOrganisation().getId().equals(organisation.getId())) {
+            throw new ResourceNotFoundException(
+                    "USER_NOT_FOUND", "No user exists with this ID");
+        }
+
+        if (targetUser.getUserType() != UserType.STANDARD_USER) {
+            throw new PermissionDeniedException(
+                    "PERMISSION_DENIED",
+                    "Super users cannot modify roles or permissions for other super users or themselves. Contact System Administrator.");
+        }
+
+        userRoleRepository.deleteByUser_Id(targetUser.getId());
+
+        for (UUID roleId : request.getAssignedRoleIds()) {
+            RoleEntity role = roleRepository
+                    .findById(roleId)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "ROLE_NOT_FOUND", "No role exists with ID: " + roleId));
+
+            UserRolesEntity userRole = new UserRolesEntity();
+            userRole.setUser(targetUser);
+            userRole.setRole(role);
+            userRole.setOrganisation(organisation);
+
+            userRoleRepository.save(userRole);
+        }
     }
 
 
