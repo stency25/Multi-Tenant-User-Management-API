@@ -19,7 +19,7 @@ A secure REST API for managing **multi-tenant organisations, users, roles, permi
 * Java 17
 * Spring Boot
 * Spring Data JPA / Hibernate
-* PostgreSQL
+* MYSQL
 * JWT
 * Lombok
 * SpringDoc OpenAPI
