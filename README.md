@@ -19,7 +19,7 @@ A secure REST API for managing **multi-tenant organisations, users, roles, permi
 * Java 17
 * Spring Boot
 * Spring Data JPA / Hibernate
-* MySQL
+* PostgreSQL
 * JWT
 * Lombok
 * SpringDoc OpenAPI
@@ -54,7 +54,7 @@ Tenant-bound records use `organisation_id` to enforce data isolation.
 Create the database:
 
 ```sql
-CREATE DATABASE multi_tenant_db;
+CREATE DATABASE multitenant_db;
 ```
 
 Configure your database credentials in:
