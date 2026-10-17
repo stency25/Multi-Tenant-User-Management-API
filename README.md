@@ -16,7 +16,7 @@ A secure REST API for managing **multi-tenant organisations, users, roles, permi
 
 ## Tech Stack
 
-* Java 21
+* Java 17
 * Spring Boot
 * Spring Data JPA / Hibernate
 * PostgreSQL
