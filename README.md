@@ -33,7 +33,7 @@ A secure REST API for managing **multi-tenant organisations, users, roles, permi
 /api/v1/audit/*     → Audit logs
 ```
 
-## Database
+## Databases
 
 Main entities:
 
