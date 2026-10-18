@@ -4,16 +4,15 @@ package com.example.usermanagement.controller;
 import com.example.usermanagement.dto.ApiResponseDto;
 import com.example.usermanagement.dto.CreateUserRequest;
 
+import com.example.usermanagement.dto.Role.RoleRequestDto;
+import com.example.usermanagement.dto.UpdateUserRolesRequestDto;
 import com.example.usermanagement.dto.UserResponseDTO;
 import com.example.usermanagement.entity.User;
 import com.example.usermanagement.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/tenant/users")
@@ -46,5 +45,20 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+@PutMapping("/roles")
+    public ResponseEntity<ApiResponseDto<Void>>UpdateUserRole(@RequestBody @Valid UpdateUserRolesRequestDto request){
+    userService.updateUserRoles(request);
+
+    ApiResponseDto<Void>response = new ApiResponseDto<>();
+    response.setStatus("success");
+    response.setMessage("user roles and permissions updatedc succesfully");
+
+    return ResponseEntity.ok(response);
+
+
 }
+
+}
+
+
 
