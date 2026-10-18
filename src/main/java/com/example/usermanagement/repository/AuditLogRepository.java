@@ -28,7 +28,7 @@ public interface AuditLogRepository extends JpaRepository<AuditLogEntity, UUID> 
 
 
     //* parameter permanently locks down results to a specific tenant (organisationId).
-    Page<AuditLogEntity>findFilteredgiLogs(
+    Page<AuditLogEntity>findFilteredLogs(
             @Param("organisationId") UUID organisationId,
             @Param("userId") UUID userId,
             @Param("action") String action,

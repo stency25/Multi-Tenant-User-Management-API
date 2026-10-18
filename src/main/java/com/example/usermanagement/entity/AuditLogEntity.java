@@ -50,4 +50,6 @@ public class AuditLogEntity {
     @Column(name = "timestamp",nullable = false)
     private OffsetDateTime timeStamp;
 
+    private String userAgent;
+
 }
