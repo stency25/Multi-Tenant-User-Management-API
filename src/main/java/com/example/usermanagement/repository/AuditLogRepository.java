@@ -16,14 +16,18 @@ import java.util.UUID;
 public interface AuditLogRepository extends JpaRepository<AuditLogEntity, UUID> {
 
 
+    //Finds audit logs strictly filtered by organisation ID.
     Page<AuditLogEntity> findByOrganisationId(UUID OrganisationId, Pageable pageable);
 
+//Allows clients to optionally filter logs by user, action, or date range
     @Query("SELECT a FROM AuditLogEntity a WHERE a.organisationId = :OrganisationId " +
             "AND (:userId IS NULL OR a.userId = :userId) " +
             "AND (: action is NULL OR a .action =:action) " +
             "AND (cast(:startDate as timestamp) IS NULL OR a.timestamp >= :startDate)" +
             "AND (cast(:endDate as timestamp)IS NULL OR a .timestamp <= : endDate)")
 
+
+    //* parameter permanently locks down results to a specific tenant (organisationId).
     Page<AuditLogEntity>findFilteredgiLogs(
             @Param("organisationId") UUID organisationId,
             @Param("userId") UUID userId,
