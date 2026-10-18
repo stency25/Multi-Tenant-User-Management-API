@@ -44,6 +44,7 @@ public class UserController {
         ////  Hand it back with an HTTP 200 OK status
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 @PutMapping("/roles")
     public ResponseEntity<ApiResponseDto<Void>>UpdateUserRole(@RequestBody @Valid UpdateUserRolesRequestDto request){
     userService.updateUserRoles(request);
