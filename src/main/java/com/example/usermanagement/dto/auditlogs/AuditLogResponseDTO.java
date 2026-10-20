@@ -1,6 +1,8 @@
 package com.example.usermanagement.dto.auditlogs;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,19 +14,33 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuditLogResponseDTO {
-    private UUID id;
-    private UUID organisationId;
+
+    @JsonProperty("audit_id")
+    private UUID auditId;
+
+    private OffsetDateTime timestamp;
+
+    @JsonProperty("user_id")
     private UUID userId;
+
+    @JsonProperty("user_type")
     private String userType;
+
     private String action;
+
+    @JsonProperty("resource_endpoint")
     private String resourceEndpoint;
+
+    @JsonProperty("ip_address")
     private String ipAddress;
-    private String userAgent;
-    private String requestPayload;
+
+    @JsonProperty("request_payload")
+    private JsonNode requestPayload;
+
+    @JsonProperty("response_code")
     private Integer responseCode;
-    private OffsetDateTime timeStamp;
-
-
-
-
 }
+
+
+
+
