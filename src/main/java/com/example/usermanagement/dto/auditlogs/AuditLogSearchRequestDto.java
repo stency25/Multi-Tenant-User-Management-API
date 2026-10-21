@@ -1,5 +1,4 @@
-package com.example.usermanagement.dto.auditlogs;
-
+package com.example.usermanagement.dto.auditdto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Max;
@@ -32,6 +31,4 @@ public class AuditLogSearchRequestDto {
     @Min(1)
     @Max(100)
     private int limit = 50;
-
-
 }
