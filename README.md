@@ -24,6 +24,7 @@ A secure REST API for managing **multi-tenant organisations, users, roles, permi
 * Lombok
 * SpringDoc OpenAPI
 * Maven
+* graddle
 
 ## API Groups
 
