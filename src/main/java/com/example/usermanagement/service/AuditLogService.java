@@ -1,12 +1,29 @@
 package com.example.usermanagement.service;
 
 
+import com.example.usermanagement.dto.auditlogs.AuditLogPageResponseDto;
+import com.example.usermanagement.dto.auditlogs.AuditLogSearchRequestDto;
+import com.example.usermanagement.entity.AuditLogEntity;
+import com.example.usermanagement.entity.Organisation;
+import com.example.usermanagement.excemption.ResourceNotFoundException;
 import com.example.usermanagement.repository.AuditLogRepository;
 import com.example.usermanagement.repository.OrganisationRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TextNode;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AuditLogService {
+
     private final AuditLogRepository auditLogRepository;
     private final OrganisationRepository organisationRepository;
     private final ObjectMapper objectMapper;
@@ -87,4 +104,9 @@ public class AuditLogService {
         }
     }
 }
-}
+
+
+
+
+
+
