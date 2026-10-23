@@ -15,27 +15,16 @@ import java.util.UUID;
 @Repository
 public interface AuditLogRepository extends JpaRepository<AuditLogEntity, UUID> {
 
-
-    //Finds audit logs strictly filtered by organisation ID.
-    Page<AuditLogEntity> findByOrganisationId(UUID OrganisationId, Pageable pageable);
-
-//Allows clients to optionally filter logs by user, action, or date range
-    @Query("SELECT a FROM AuditLogEntity a WHERE a.organisationId = :OrganisationId " +
-            "AND (:userId IS NULL OR a.userId = :userId) " +
-            "AND (: action is NULL OR a .action =:action) " +
-            "AND (cast(:startDate as timestamp) IS NULL OR a.timestamp >= :startDate)" +
-            "AND (cast(:endDate as timestamp)IS NULL OR a .timestamp <= : endDate)")
-
-
-    //* parameter permanently locks down results to a specific tenant (organisationId).
-    Page<AuditLogEntity>findFilteredLogs(
+    @Query("SELECT a FROM AuditLogEntity a " +
+            "WHERE (:organisationId IS NULL OR a.organisationId = :organisationId) " +
+            "AND a.timeStamp >= :startDate " +
+            "AND a.timeStamp <= :endDate " +
+            "AND (:actionFilter IS NULL OR a.action = :actionFilter) " +
+            "ORDER BY a.timeStamp DESC")
+    Page<AuditLogEntity> search(
             @Param("organisationId") UUID organisationId,
-            @Param("userId") UUID userId,
-            @Param("action") String action,
             @Param("startDate") OffsetDateTime startDate,
             @Param("endDate") OffsetDateTime endDate,
-
-            Pageable pageable
-    );
-
+            @Param("actionFilter") String actionFilter,
+            Pageable pageable);
 }
