@@ -20,10 +20,10 @@ public class AuditLogController {
     }
 
     @PostMapping("/logs")
-    public ResponseEntity<com.example.usermanagement.dto.auditdto.AuditLogPageResponseDto> searchLogs(
-            @Valid @giRequestBody com.example.usermanagement.dto.auditdto.AuditLogSearchRequestDto request) {
+    public ResponseEntity<com.example.usermanagement.dto.auditlogs.AuditLogPageResponseDto> searchLogs(
+            @Valid @RequestBody com.example.usermanagement.dto.auditlogs.AuditLogSearchRequestDto request) {
 
         return ResponseEntity.ok(auditLogService.search(request));
     }
 }
-}
+
