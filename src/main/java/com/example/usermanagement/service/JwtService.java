@@ -21,7 +21,7 @@ public class JwtService {
 
     public JwtService(@Value("${app.jwt.secret}") String secret,
                       @Value("${app.jwt.expiration-minutes}") long expirationMinutes) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMinutes = expirationMinutes;
     }
 
@@ -35,11 +35,11 @@ public class JwtService {
                 .claim("requires_password_change",Boolean.TRUE.equals(user.getRequiresPasswordChange()))
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plus(expirationMinutes,ChronoUnit.MINUTES)))
-                .signWith(Key)
+                .signWith(secretKey)
                 .compact();
     }
     public Claims parse(String token){
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
     }
     public long getExpirationSeconds(){
         return expirationMinutes * 60;
