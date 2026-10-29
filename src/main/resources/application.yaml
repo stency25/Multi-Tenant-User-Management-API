@@ -38,3 +38,13 @@ springdoc:
     path: /swagger-ui.html
 
 
+    app:
+      jwt:
+        secret: ${JWT_SECRET:dev-only-secret-change-me-use-at-least-32-characters}
+        expiration-minutes: 60
+        # Initial administrator account credentials for database seeding
+      seed:
+        admin-email: admin@platform.local
+        admin-password: ${SEED_ADMIN_PASSWORD:ChangeMe123!}
+
+
