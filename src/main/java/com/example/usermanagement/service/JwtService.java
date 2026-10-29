@@ -13,7 +13,7 @@ import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
+//this class serves as security manager
 public class JwtService {
 
     private final SecretKey secretKey;
