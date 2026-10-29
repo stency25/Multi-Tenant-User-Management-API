@@ -48,6 +48,9 @@ public class GlobalExceptionHandler {
         body.setMessage(message);
         return ResponseEntity.status(status).body(body);
     }
+@ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ApiResponseDto<Void>>  handleUnauthorized( UnauthorizedException exception){
+        return  error(HttpStatus.UNAUTHORIZED, exception.getCode(),exception.getMessage());
     }
-
+}
 
