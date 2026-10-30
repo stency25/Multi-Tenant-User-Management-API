@@ -1,16 +1,12 @@
 package com.example.usermanagement.security;
-
 import com.example.usermanagement.entity.UserType;
 import com.example.usermanagement.service.JwtService;
-import com.sun.net.httpserver.Filter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,12 +29,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+        //Grab the Authorization header from the incoming HTTP request
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
+
+        ////  Checks if the header exists and starts with the "Bearer " scheme
         if (header  != null &&header.startsWith("Bearer") ){
             try {
+                /// /validate the JWT token to unlock claims
                 Claims claims = jwtService.parse(header.substring(7));
 
+                //Reconstruct the AuthenticatedUser principal from token claims
                 AuthenticatedUser Principal = new AuthenticatedUser(
                         UUID.fromString(claims.getSubject()),
                         claims.get("email", String.class),
@@ -47,14 +48,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         Boolean.TRUE.equals(claims.get("requires_password_change", Boolean.class)));
 
 
+                ////  Assigns appropriate security authority (password change gate or user role)
                 GrantedAuthority authority = Principal.requiresPasswordChange()
                         ? new SimpleGrantedAuthority("PASSWORD_CHANGE_REQUIRED")
                         : new SimpleGrantedAuthority("ROLE_" + Principal.userType().name());
 
+                //Stamp the authenticated user and authority onto Spring Security's context
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(Principal, null, List.of(authority)));
 
             }
+            ////  Clear context if token parsing or validation fails
             catch (JwtException | IllegalArgumentException exception){
                 SecurityContextHolder.clearContext();
             }
