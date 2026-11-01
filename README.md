@@ -48,6 +48,7 @@ role_permissions
 audit_logs
 ```
 
+
 Tenant-bound records use `organisation_id` to enforce data isolation.
 
 ## Run Locally
@@ -64,7 +65,7 @@ Configure your database credentials in:
 src/main/resources/application.yml
 ```
 
-
+run
 
 ```bash
 mvn clean install
