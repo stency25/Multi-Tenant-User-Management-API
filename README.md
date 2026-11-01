@@ -64,7 +64,7 @@ Configure your database credentials in:
 src/main/resources/application.yml
 ```
 
-Run:
+
 
 ```bash
 mvn clean install
